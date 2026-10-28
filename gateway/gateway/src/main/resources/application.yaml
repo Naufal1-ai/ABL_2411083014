@@ -1,0 +1,52 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: PRODUK
+              uri: http://localhost:8081
+              predicates:
+                - Path=/api/produk/**
+            - id: PRODUK-BASE
+              uri: http://localhost:8081
+              predicates:
+                - Path=/api/produk
+            - id: PELANGGAN
+              uri: http://localhost:8082
+              predicates:
+                - Path=/api/pelanggan/**
+            - id: PELANGGAN-BASE
+              uri: http://localhost:8082
+              predicates:
+                - Path=/api/pelanggan
+            - id: ORDER-SERVICE
+              uri: http://localhost:8083
+              predicates:
+                - Path=/api/order/**
+            - id: ORDER-BASE
+              uri: http://localhost:8083
+              predicates:
+                - Path=/api/order
+            - id: EMAIL-SERVICE
+              uri: http://localhost:8084
+              predicates:
+                - Path=/api/email/**
+            - id: EMAIL-BASE
+              uri: http://localhost:8084
+              predicates:
+                - Path=/api/email
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
