@@ -1,0 +1,56 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: email
+
+  # Membaca file .env (format KEY=VALUE) sebagai sumber konfigurasi.
+  # optional: -> aplikasi tetap jalan walau file .env tidak ada.
+  config:
+    import:
+      - optional:file:./.env[.properties]
+      - optional:file:.env[.properties]
+
+  # Database sendiri (H2 file-based) untuk menyimpan riwayat email
+  datasource:
+    url: jdbc:h2:file:./data/email;AUTO_SERVER=TRUE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # RabbitMQ (message broker)
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+
+  # Gmail SMTP untuk mengirim email sungguhan.
+  # Nilai diambil dari environment variable (lihat file .env).
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_USERNAME:naufal030406@gmail.com}
+    password: ${GMAIL_APP_PASSWORD:iwfjulxnctrbfoeu}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# Pengaturan khusus Email Service
+app:
+  email:
+    # Pengirim = akun Gmail Anda (harus sama dengan spring.mail.username)
+    pengirim: ${GMAIL_USERNAME:naufal030406@gmail.com}
+    # Penerima email (dipakai tetap dulu untuk demo)
+    penerima: ${EMAIL_PENERIMA:naufal030406@gmail.com}
