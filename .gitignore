@@ -1,0 +1,52 @@
+# ============================================================
+# .gitignore untuk seluruh proyek ABL (microservices)
+# ============================================================
+
+### RAHASIA / ENVIRONMENT - WAJIB! ###
+.env
+.env.local
+*.env
+!.env.example
+
+### Build output ###
+target/
+build/
+bin/
+*.class
+
+### Maven wrapper jar (opsional, kalau ingin pakai mvnw dari download) ###
+.mvn/wrapper/maven-wrapper.jar
+
+### Database lokal H2 ###
+data/
+*.db
+*.mv.db
+*.trace.db
+*.lock.db
+
+### IDE ###
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
+.springBeans
+.sts4-cache
+.apt_generated
+
+### OS ###
+Thumbs.db
+.DS_Store
+
+### Log ###
+*.log
+
+### Zip archives & backup ###
+*.zip
+.git_backup/
+**/.git_backup/
+
